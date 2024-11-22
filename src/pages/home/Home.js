@@ -1,7 +1,69 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react';
 
 const Home = () => {
+
+  useEffect(() => {
+    const TxtRotate = function (el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 10) || 2000;
+      this.txt = "";
+      this.isDeleting = false;
+      this.tick();
+    };
+
+    TxtRotate.prototype.tick = function () {
+      const i = this.loopNum % this.toRotate.length;
+      const fullTxt = this.toRotate[i];
+
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+
+      this.el.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+      const that = this;
+
+      // Adjust speeds and delays for smooth animation
+      let delta = this.isDeleting ? 100 : 200; // Typing speed
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period; // Pause before deleting
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === "") {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500; // Pause before typing the next text
+      }
+
+      setTimeout(() => {
+        that.tick();
+      }, delta);
+    };
+
+    const elements = document.getElementsByClassName("txt-rotate");
+    for (let i = 0; i < elements.length; i++) {
+      const toRotate = elements[i].getAttribute("data-rotate");
+      const period = elements[i].getAttribute("data-period");
+      if (toRotate) {
+        new TxtRotate(elements[i], JSON.parse(toRotate), period);
+      }
+    }
+
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = `
+      .txt-rotate > .wrap { 
+        border-right: 0.08em solid #666; 
+        transition: all 0.3s ease-in-out; /* Smooth transitions */
+      }
+    `;
+    document.body.appendChild(style);
+  }, []);
   
   return (
 <div id="header">

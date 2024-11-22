@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 import Home from './pages/home/Home';
 import About from './pages/about/About';
 import {Protfolio} from './pages/portfolio/portfolio';
@@ -11,20 +11,20 @@ import './App.css';
 import './css/main.css';
 
 function App() {
-  useEffect(() => {
-    // GSAP Page Transition Animation
-    const handlePageTransition = () => {
-      // Fade out previous page content
-      gsap.to('.page', { opacity: 0, duration: 0.5 });
+  // useEffect(() => {
+  //   // GSAP Page Transition Animation
+  //   const handlePageTransition = () => {
+  //     // Fade out previous page content
+  //     gsap.to('.page', { opacity: 0, duration: 0.5 });
 
-      // Wait for the transition to complete, then fade in the new page
-      setTimeout(() => {
-        gsap.to('.page', { opacity: 1, duration: 0.5 });
-      }, 500);
-    };
+  //     // Wait for the transition to complete, then fade in the new page
+  //     setTimeout(() => {
+  //       gsap.to('.page', { opacity: 1, duration: 0.5 });
+  //     }, 500);
+  //   };
 
-    handlePageTransition();
-  }, []);
+  //   handlePageTransition();
+  // }, []);
 
   return (
     <Router>
