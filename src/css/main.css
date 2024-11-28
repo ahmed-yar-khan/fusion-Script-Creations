@@ -1397,9 +1397,9 @@ For devices with smaller width like mobile phone
         z-index: 2;
         text-align: center;
     }
-    #contact{
+    /* #contact{
         display: none;
-    }
+    } */
     #breaker{
         height: 50vh;
         width: 200%;
